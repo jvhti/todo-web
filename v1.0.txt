@@ -1,0 +1,14 @@
+ToDo V1.0
+
+1 - Create new ToDo entrie
+2 - Navigate using TAB
+3 - Edit ToDo entries
+4 - Should save in LocalStorage
+5 - Should load ToDo entries from LocalStorage
+6 - Can set a ToDo entrie as finished
+7 - Finished ToDo's goes to the archive
+8 - Can delete from archive
+9 - Setting for clear the archive when close browser
+10 - Store created and finished dates
+11 - Can use Ctrl+N to create new ToDo
+12 - Can collapse archive or todo lists
