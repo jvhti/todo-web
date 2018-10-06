@@ -8,9 +8,6 @@ define(function () {
 	/** Class to be toggled when collapsing or expanding a element */
 	const collapsedClass = "collapsed";
 
-	/** Class of the elements that can toggle collapsable */
-	const collapsableControllerClass = "collapsable-controller";
-
 	/**
 	 * Returns an array of targets for the selector.
 	 * @function
@@ -107,8 +104,9 @@ define(function () {
 	 * @function
 	 * @name startup
 	 * @public
+	 * @param {String} Class of the elements that controll collapsables
 	 */
-	let startup = function(){
+	let startup = function(collapsableControllerClass = "collapsable-controller"){
 		let tmp = document.getElementsByClassName(collapsableControllerClass);
 		//console.log(tmp);
 
