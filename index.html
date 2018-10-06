@@ -2,15 +2,7 @@
 <html>
 <head>
 	<title>ToDo</title>
-	<style type="text/css">
-		.collapsed{
-			display: none;
-		}
-
-		.active{
-			color: red;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
 	<header>
@@ -18,25 +10,54 @@
 	</header>
 	<main>
 		<section>
-			<table>
+			<table class="todo-table">
 				<thead>
 					<tr>
-						<td colspan="2">					
-							<h2>ToDo</h2>
+						<td colspan="3">					
+							<h2 class="todo-table-title">ToDo</h2>
+							<button class="collapsible-cntrl-btn collapsible-controller" data-collapse="tbody.todoBody" data-activeClass="active" data-activeTarget="this"><img src="img/left_chevron.svg" style="width: 12px; height: auto;"></button>
 						</td>
-						<td><button class="collapsable-controller" data-collapse="tbody.todoBody" data-activeClass="active" data-activeTarget="this"><img src="img/left_chevron.svg" style="width: 12px; height: auto;"></button></td>
 					</tr>
 				</thead>
-				<tbody class="todoBody" data-collapsed="true">
+				<tbody class="todoBody" data-collapsed="false">
 					<tr>
-						<td>1</td>
-						<td>Text input here</td>
-						<td><img src="img/noun_Check Mark_5390_000000.svg" style="width: 12px; height: auto;"></td>
+        				<td><img class="drag-btn" src="https://png.icons8.com/metro/1600/move-grabber.png"/></td>
+						<td class="todo-input-container">
+				        	<input value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."/>
+				        </td>
+				        <td><img class="check-btn" src="https://png.icons8.com/metro/1600/checkmark.png"/></td>
+					</tr>
+					<tr>
+        				<td><img class="drag-btn" src="https://png.icons8.com/metro/1600/move-grabber.png"/></td>
+						<td class="todo-input-container">
+				        	<input value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."/>
+				        </td>
+				        <td><img class="check-btn" src="https://png.icons8.com/metro/1600/checkmark.png"/></td>
+					</tr>
+					<tr>
+        				<td><img class="drag-btn" src="https://png.icons8.com/metro/1600/move-grabber.png"/></td>
+						<td class="todo-input-container">
+				        	<input value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."/>
+				        </td>
+				        <td><img class="check-btn" src="https://png.icons8.com/metro/1600/checkmark.png"/></td>
+					</tr>
+					<tr>
+        				<td><img class="drag-btn" src="https://png.icons8.com/metro/1600/move-grabber.png"/></td>
+						<td class="todo-input-container">
+				        	<input value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."/>
+				        </td>
+				        <td><img class="check-btn" src="https://png.icons8.com/metro/1600/checkmark.png"/></td>
+					</tr>
+					<tr class="new-todo">
+						<td colspan="2" class="todo-input-container">
+				        	<input value="" placeholder="Type here what you want to do." />
+				        </td>
+				        <td><img class="add-btn" src="https://png.icons8.com/android/1600/plus.png"/></td>
 					</tr>
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="3">
+						<td class="total-todo" colspan="3">
 							Total: 1
 						</td>
 					</tr>
@@ -44,25 +65,27 @@
 			</table>
 		</section>
 		<section>
-			<table>
+			<table class="todo-table">
 				<thead>
 					<tr>
-						<td colspan="2">					
-							<h2>Archive</h2>
+						<td colspan="3">					
+							<h2 class="todo-table-title">Archive</h2>
+							<button class="collapsible-cntrl-btn collapsible-controller" data-collapse="tbody.archiveBody" data-activeClass="active"><img src="img/left_chevron.svg" style="width: 12px; height: auto;"></button>
 						</td>
-						<td><button class="collapsable-controller" data-collapse="tbody.archiveBody"><img src="img/left_chevron.svg" style="width: 12px; height: auto;"></button></td>
 					</tr>
 				</thead>
 				<tbody class="archiveBody" data-collapsed="false">
 					<tr>
-						<td>1</td>
-						<td>Text input here</td>
-						<td><img src="img/icons8-excluir.svg"></td>
+        				<td><img class="drag-btn" src="https://png.icons8.com/metro/1600/move-grabber.png"/></td>
+						<td class="todo-input-container">
+				        	<input value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."/>
+				        </td>
+				        <td><img class="check-btn" src="https://png.icons8.com/metro/1600/checkmark.png"/></td>
 					</tr>
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="3">
+						<td class="total-todo" colspan="3">
 							Total: 1
 						</td>
 					</tr>
