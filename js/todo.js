@@ -5,7 +5,7 @@ define(function () {
 	 * @module ToDo
 	 */
 
-	const cooldownArchivingTime = 5; 
+	const cooldownArchivingTime = 3; 
 	const COOLDOWN_ARCHIVING_PLACEHOLDER_START = "Will be moved to archive in ";
 	const COOLDOWN_ARCHIVING_PLACEHOLDER_END = " seconds.";
 
@@ -142,20 +142,22 @@ define(function () {
 		input.placeholder = COOLDOWN_ARCHIVING_PLACEHOLDER_START+(target.dataset.cooldowntime)+COOLDOWN_ARCHIVING_PLACEHOLDER_END;
 	}
 
+	let _createArchiveEntry = function(text, archiveElem){
+		let added = _createTemplateClone(text);
+
+		added.dataset.archiveid = archive.length;
+		archive[archive.length] = text;
+
+		archiveElem.appendChild(added);
+	}
+
 	let _archiveToDo = function(listElem, archiveElem, ev){
 		let message = list[ev.detail.todoid];
 		
 		_removeToDo(listElem, ev.detail.todoid);
-		
-		let added = _createTemplateClone(message);
 
-		added.dataset.archiveid = archive.length;
-		archive[archive.length] = message;
-
-		// let tmp = elem.querySelector(".check-btn");
-		// tmp.parentElement.removeChild(tmp);
-
-		archiveElem.appendChild(added);
+		_createArchiveEntry(message, archiveElem);
+		_saveToStorage();
 	}
 
 	let _cancelMovingToArchive = function(target, archiveToDo){
@@ -208,9 +210,11 @@ define(function () {
 	 * @private
 	 */
 	let _saveToStorage = function(){
-		let json = JSON.stringify(list);
-		console.log("Saving...", json);
-		localStorage.setItem('todos', json);
+		let listJSON = JSON.stringify(list);
+		let archiveJSON = JSON.stringify(archive);
+		console.log("Saving...", listJSON, archiveJSON);
+		localStorage.setItem('todos', listJSON);
+		sessionStorage.setItem('archive', archiveJSON);
 	}
 
 	/**
@@ -225,15 +229,21 @@ define(function () {
 	 */
 	let _loadFromStorage = function(newToDoInput, listElem, archiveElem, templateElem){
 		let newList = JSON.parse(localStorage.getItem('todos'));
+		let newArchive = JSON.parse(sessionStorage.getItem('archive'));
 		
-		console.log("Loaded...", newList);
+		console.log("Loaded...", newList, newArchive);
 
 		let oldTodos = listElem.querySelectorAll("tr:not(.new-todo)");
 		oldTodos.forEach((x,i,a) => { x.parentElement.removeChild(x); });
 
+		let oldArchive = archiveElem.querySelectorAll("tr");
+		oldArchive.forEach((x,i,a) => { x.parentElement.removeChild(x); });
+
 		delete oldTodos;
+		delete oldArchive;
 
 		for(let i = 0; i < newList.length; ++i) _createToDoEntry(newList[i], newToDoInput, listElem, archiveElem, templateElem);
+		for(let i = 0; i < newArchive.length; ++i) _createArchiveEntry(newArchive[i], archiveElem);
 	}
 
 	/**
