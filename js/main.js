@@ -1,3 +1,3 @@
-requirejs(["collapsable"], function(collapsable) {
-	collapsable();
+requirejs(["collapsible"], function(collapsible) {
+	collapsible();
 });

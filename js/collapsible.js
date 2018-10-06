@@ -1,8 +1,8 @@
 define(function () {
 	/**
-	 * Module that controlls collapsable elements and controllers.
+	 * Module that controlls collapsible elements and controllers.
 	 * @public
-	 * @module collapsable
+	 * @module collapsible
 	 */
 
 	/** Class to be toggled when collapsing or expanding a element */
@@ -104,15 +104,15 @@ define(function () {
 	 * @function
 	 * @name startup
 	 * @public
-	 * @param {String} Class of the elements that controll collapsables
+	 * @param {String} Class of the elements that controll collapsibles
 	 */
-	let startup = function(collapsableControllerClass = "collapsable-controller"){
-		let tmp = document.getElementsByClassName(collapsableControllerClass);
+	let startup = function(collapsibleControllerClass = "collapsible-controller"){
+		let tmp = document.getElementsByClassName(collapsibleControllerClass);
 		//console.log(tmp);
 
 		for(let i = 0; i < tmp.length; ++i){
 			if(tmp[i].dataset.collapse === undefined){
-				console.warn("Element has collapsable controller class but doesn't have a collapse target.", this);
+				console.warn("Element has collapsible controller class but doesn't have a collapse target.", this);
 				continue;
 			}
 
