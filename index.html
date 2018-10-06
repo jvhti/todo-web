@@ -20,36 +20,9 @@
 					</tr>
 				</thead>
 				<tbody class="todoBody" data-collapsed="false">
-					<tr>
-        				<td><img class="drag-btn" src="https://png.icons8.com/metro/1600/move-grabber.png"/></td>
+					<tr class="new-todo">	
+						<td><img class="drag-btn" src="https://png.icons8.com/metro/1600/move-grabber.png"/></td>
 						<td class="todo-input-container">
-				        	<input value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."/>
-				        </td>
-				        <td><img class="check-btn" src="https://png.icons8.com/metro/1600/checkmark.png"/></td>
-					</tr>
-					<tr>
-        				<td><img class="drag-btn" src="https://png.icons8.com/metro/1600/move-grabber.png"/></td>
-						<td class="todo-input-container">
-				        	<input value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."/>
-				        </td>
-				        <td><img class="check-btn" src="https://png.icons8.com/metro/1600/checkmark.png"/></td>
-					</tr>
-					<tr>
-        				<td><img class="drag-btn" src="https://png.icons8.com/metro/1600/move-grabber.png"/></td>
-						<td class="todo-input-container">
-				        	<input value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."/>
-				        </td>
-				        <td><img class="check-btn" src="https://png.icons8.com/metro/1600/checkmark.png"/></td>
-					</tr>
-					<tr>
-        				<td><img class="drag-btn" src="https://png.icons8.com/metro/1600/move-grabber.png"/></td>
-						<td class="todo-input-container">
-				        	<input value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."/>
-				        </td>
-				        <td><img class="check-btn" src="https://png.icons8.com/metro/1600/checkmark.png"/></td>
-					</tr>
-					<tr class="new-todo">
-						<td colspan="2" class="todo-input-container">
 				        	<input value="" placeholder="Type here what you want to do." />
 				        </td>
 				        <td><img class="add-btn" src="https://png.icons8.com/android/1600/plus.png"/></td>
@@ -58,7 +31,7 @@
 				<tfoot>
 					<tr>
 						<td class="total-todo" colspan="3">
-							Total: 1
+							Total: 0
 						</td>
 					</tr>
 				</tfoot>
@@ -75,18 +48,11 @@
 					</tr>
 				</thead>
 				<tbody class="archiveBody" data-collapsed="false">
-					<tr>
-        				<td><img class="drag-btn" src="https://png.icons8.com/metro/1600/move-grabber.png"/></td>
-						<td class="todo-input-container">
-				        	<input value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."/>
-				        </td>
-				        <td><img class="check-btn" src="https://png.icons8.com/metro/1600/checkmark.png"/></td>
-					</tr>
 				</tbody>
 				<tfoot>
 					<tr>
 						<td class="total-todo" colspan="3">
-							Total: 1
+							Total: 0
 						</td>
 					</tr>
 				</tfoot>
@@ -96,6 +62,17 @@
 	<footer>
 		Developed by <a href="#">jvhti</a>. Source code available <a href="#">here</a>.
 	</footer>
+
+	<template id="todoTemplate">
+		<tr>
+			<td><img class="drag-btn" src="https://png.icons8.com/metro/1600/move-grabber.png"/></td>
+			<td class="todo-input-container">
+	        	<input value="Message" placeholder="This entry will be deleted if you leave it empty." />
+	        </td>
+	        <td><img class="check-btn" src="https://png.icons8.com/metro/1600/checkmark.png"/></td>
+		</tr>
+	</template>
+
 	<script data-main="js/main" src="dist/js/require.js"></script>
 </body>
 </html>

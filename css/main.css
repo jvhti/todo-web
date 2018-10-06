@@ -68,9 +68,6 @@ table.todo-table tbody.collapsed {
 table.todo-table tbody > tr.new-todo > td:last-child {
   background-color: #a5e6b1;
 }
-table.todo-table tbody > tr.new-todo > td.todo-input-container {
-  padding-left: 10px;
-}
 table.todo-table tbody > tr > td {
   height: 55px;
 }
