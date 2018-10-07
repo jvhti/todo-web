@@ -1,4 +1,4 @@
-define(['utils'], function () {
+define(function () {
 	/**
 	 * Utility module
 	 * @public
