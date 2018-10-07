@@ -1,7 +1,7 @@
 define(function () {
 	return function(addButtonElem, listElem, archiveElem, templateElem) {
 		/**
-		 * Module that controlls todo entries and archive
+		 * Module that controlls ToDo entries and Archive
 		 * @public
 		 * @module ToDo
 		 */
@@ -277,12 +277,8 @@ define(function () {
 			let oldTodos = listElem.querySelectorAll("tr:not(.new-todo)");
 			oldTodos.forEach((x,i,a) => { x.parentElement.removeChild(x); });
 
-			delete oldTodos;
-			
 			let oldArchive = archiveElem.querySelectorAll("tr");
 			oldArchive.forEach((x,i,a) => { x.parentElement.removeChild(x); });
-
-			delete oldArchive;
 
 			for(let i = 0; i < newList.length; ++i) _createToDoEntry(newList[i], newToDoInput);
 			for(let i = 0; i < newArchive.length; ++i) _createArchiveEntry(newArchive[i]);
