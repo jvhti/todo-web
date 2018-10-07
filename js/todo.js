@@ -47,12 +47,13 @@ define(['utils'], function (utils) {
 		 * @param {String} Text
 		 * @param {Input} New-ToDo-Input
 		 */
-		 let _createToDoEntry = function(text, newToDoInput){
+		 let _createToDoEntry = function(text, newToDoInput, creationDate){
+		 	if(!creationDate) creationDate = new Date();
 			let added = _createTemplateClone(text, todoTemplateElem);
 			
 			added.dataset.todoid = list.length;
 			
-			list[list.length] = {text, creationDate: new Date()};
+			list[list.length] = {text, creationDate};
 			
 			added.querySelector("input").addEventListener("change", _updateToDo);
 			added.querySelector(".check-btn").addEventListener("click", _onFinisheToDo);
@@ -67,11 +68,12 @@ define(['utils'], function (utils) {
 		 * @private
 		 * @param {String} Text
 		 */
-		let _createArchiveEntry = function(text, creationDate){
+		let _createArchiveEntry = function(text, creationDate, finishedDate){
+			if(!finishedDate) finishedDate = new Date();
 			let added = _createTemplateClone(text, archiveTemplateElem);
 
 			added.dataset.archiveid = archive.length;
-			archive[archive.length] = {text, creationDate, finishedDate: new Date()};
+			archive[archive.length] = {text, creationDate, finishedDate};
 
 			added.querySelector("input").readOnly = true;
 			added.querySelector(".remove-btn").addEventListener("click", _removeArchiveEntry);
@@ -304,8 +306,8 @@ define(['utils'], function (utils) {
 			let oldArchive = archiveElem.querySelectorAll("tr");
 			oldArchive.forEach((x,i,a) => { x.parentElement.removeChild(x); });
 
-			for(let i = 0; i < newList.length; ++i) _createToDoEntry(newList[i].text, newToDoInput);
-			for(let i = 0; i < newArchive.length; ++i) _createArchiveEntry(newArchive[i].text);
+			for(let i = 0; i < newList.length; ++i) _createToDoEntry(newList[i].text, newToDoInput, newList[i].creationDate);
+			for(let i = 0; i < newArchive.length; ++i) _createArchiveEntry(newArchive[i].text, newArchive[i].creationDate, newArchive[i].finishedDate);
 
 			_updateTotal();
 		}
@@ -335,6 +337,8 @@ define(['utils'], function (utils) {
 			newToDoInput.addEventListener("keyup", (e) => { if(e.keyCode != 13) return; addToDo(e);} );
 
 			_loadFromStorage(newToDoInput);
+
+			console.log(archive);
 		}
 
 		return startup();
