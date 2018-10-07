@@ -113,9 +113,9 @@ define(['utils'], function (utils) {
 		 */
 		let _addToDo = function(newToDoInput, ev) {
 			ev.preventDefault();
-			if(newToDoInput.value.length === 0) return;
+			if(newToDoInput.value.trim().length === 0) return;
 			
-			_createToDoEntry(newToDoInput.value, newToDoInput);
+			_createToDoEntry(newToDoInput.value.trim(), newToDoInput);
 
 			newToDoInput.value = "";
 
