@@ -1,7 +1,7 @@
 @import "../dist/sass/_normalize.scss"
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto')
 
-.drag-btn, .check-btn, .add-btn
+.drag-btn, .check-btn, .add-btn, .remove-btn
 	width: auto
 	max-height: 35px
 	height: 100%
@@ -58,6 +58,9 @@ table.todo-table
 		&.collapsed
 			display: block
 			overflow-y: hidden
+
+		&.archiveBody > tr > td:last-child
+			background-color: #f0e895
 
 		& > tr
 			&.new-todo > td
