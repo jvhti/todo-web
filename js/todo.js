@@ -179,6 +179,7 @@ define(['utils'], function (utils) {
 			target.dataset.cooldowntime = cooldownArchivingTime;
 
 			target.dataset.todomessage = input.value;
+			
 			input.value = "";
 			input.placeholder = COOLDOWN_ARCHIVING_PLACEHOLDER_START+(parseInt(cooldownArchivingTime)+1)+COOLDOWN_ARCHIVING_PLACEHOLDER_END;
 
