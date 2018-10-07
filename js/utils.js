@@ -1,6 +1,6 @@
 define(['utils'], function () {
 	/**
-	 * Utility modules
+	 * Utility module
 	 * @public
 	 * @module Utils
 	 */
