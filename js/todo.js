@@ -84,6 +84,7 @@ define(['utils'], function (utils) {
 		 * @param {Event} Click-Event
 		 */
 		let _removeArchiveEntry = function(ev){
+			ev.preventDefault();
 			let id = utils.getParent("TR", ev.target).dataset.archiveid;
 
 			if(id > archive.length || id < 0) return;
@@ -107,7 +108,8 @@ define(['utils'], function (utils) {
 		 * @param {Input} New-ToDo
 		 * @param {Element} ToDo-Table
 		 */
-		let _addToDo = function(newToDoInput) {
+		let _addToDo = function(newToDoInput, ev) {
+			ev.preventDefault();
 			if(newToDoInput.value.length === 0) return;
 			
 			_createToDoEntry(newToDoInput.value, newToDoInput);
@@ -164,6 +166,7 @@ define(['utils'], function (utils) {
 		 * @param {Event} Event-Data
 		 */
 		let _onFinisheToDo = function(ev){
+			ev.preventDefault();
 			let target = utils.getParent("TR", ev.target);
 			let input = target.querySelector("input");
 
@@ -322,7 +325,7 @@ define(['utils'], function (utils) {
 			let addToDo = _addToDo.bind(null, newToDoInput);
 
 			addButtonElem.addEventListener("click", addToDo);
-			newToDoInput.addEventListener("keyup", (e) => { if(e.keyCode != 13) return; addToDo();} );
+			newToDoInput.addEventListener("keyup", (e) => { if(e.keyCode != 13) return; addToDo(e);} );
 
 			_loadFromStorage(newToDoInput);
 		}

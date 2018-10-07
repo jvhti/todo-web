@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto");
-.drag-btn, .check-btn, .add-btn, .remove-btn {
+.drag-btn, .check-btn > img, .add-btn > img, .remove-btn > img {
   width: auto;
   max-height: 35px;
   height: 100%;
@@ -9,7 +9,7 @@
   filter: alpha(opacity=40);
   transition: opacity 400ms;
 }
-.drag-btn:hover, .drag-btn:active, .check-btn:hover, .check-btn:active, .add-btn:hover, .add-btn:active, .remove-btn:hover, .remove-btn:active {
+.drag-btn:hover, .drag-btn:active, .check-btn > img:hover, .check-btn > img:active, .add-btn > img:hover, .add-btn > img:active, .remove-btn > img:hover, .remove-btn > img:active {
   opacity: 1;
   filter: alpha(opacity=100);
 }
@@ -64,6 +64,9 @@ table.todo-table thead > tr > td > h2 {
 table.todo-table tbody.collapsed {
   display: block;
   overflow-y: hidden;
+}
+table.todo-table tbody.archiveBody > tr input {
+  cursor: not-allowed;
 }
 table.todo-table tbody.archiveBody > tr > td:last-child {
   background-color: #f0e895;
