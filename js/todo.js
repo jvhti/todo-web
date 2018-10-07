@@ -6,6 +6,9 @@ define(['utils'], function (utils) {
 		 * @module ToDo
 		 */
 
+		/** Save archive to session or to local storage */
+		const saveArchiveToSession = false;
+
 		/** Cooldown time to remove a completed ToDo */
 		const cooldownArchivingTime = 2;
 
@@ -275,7 +278,7 @@ define(['utils'], function (utils) {
 			// console.log("Saving...", listJSON, archiveJSON);
 
 			localStorage.setItem('todos', listJSON);
-			sessionStorage.setItem('archive', archiveJSON);
+			(saveArchiveToSession ? sessionStorage : localStorage).setItem('archive', archiveJSON);
 
 			_updateTotal();
 		}
@@ -289,7 +292,7 @@ define(['utils'], function (utils) {
 		 */
 		let _loadFromStorage = function(newToDoInput){
 			let newList = JSON.parse(localStorage.getItem('todos'));
-			let newArchive = JSON.parse(sessionStorage.getItem('archive'));
+			let newArchive = JSON.parse((saveArchiveToSession ? sessionStorage : localStorage).getItem('archive'));
 			
 			// console.log("Loaded...", newList, newArchive);
 
@@ -301,6 +304,8 @@ define(['utils'], function (utils) {
 
 			for(let i = 0; i < newList.length; ++i) _createToDoEntry(newList[i], newToDoInput);
 			for(let i = 0; i < newArchive.length; ++i) _createArchiveEntry(newArchive[i]);
+
+			_updateTotal();
 		}
 
 		/**
