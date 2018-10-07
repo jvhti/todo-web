@@ -1,4 +1,4 @@
-define(function () {
+define(['utils'], function (utils) {
 	return function(addButtonElem, listElem, archiveElem, templateElem) {
 		/**
 		 * Module that controlls ToDo entries and Archive
@@ -19,19 +19,6 @@ define(function () {
 
 		/** Archive of completed ToDo */
 		let archive = [];
-
-		/**
-		 * Helper function to get the first parent of a element with a set tag name.
-		 * @function
-		 * @name _getParent
-		 * @private
-		 * @param {String} Tag to search for
-		 * @param {Element} Starting point
-		 */
-		 let _getParent = function(tag, elem){
-		 	if(elem.tagName === tag) return elem;
-		 	return _getParent(tag, elem.parentElement);
-		 }
 
 		/**
 		 * Create a clone of template and populate text.
@@ -66,8 +53,24 @@ define(function () {
 			added.querySelector("input").addEventListener("change", _updateToDo);
 			added.querySelector(".check-btn").addEventListener("click", _onFinisheToDo);
 			
-			listElem.insertBefore(added, _getParent("TR", newToDoInput));
+			listElem.insertBefore(added, utils.getParent("TR", newToDoInput));
 		 }
+
+		/**
+		 * Creates and Append a new Archive Entry.
+		 * @function
+		 * @name _createArchiveEntry
+		 * @private
+		 * @param {String} Text
+		 */
+		let _createArchiveEntry = function(text){
+			let added = _createTemplateClone(text);
+
+			added.dataset.archiveid = archive.length;
+			archive[archive.length] = text;
+
+			archiveElem.appendChild(added);
+		}
 
 		/**
 		 * Called when user clicks the Add Button. Will create a new ToDo Entry and save to storage.
@@ -86,6 +89,27 @@ define(function () {
 
 			_saveToStorage();
 		}
+		
+		/**
+		 * Removes the ToDo at position 'i'.
+		 * @function
+		 * @name _removeToDo
+		 * @private
+		 * @param {Number} ID
+		 */
+		let _removeToDo = function(id){
+			if(id > list.length || id < 0) return;
+			
+			let x = 0;
+			let todos = listElem.querySelectorAll("tr:not(.new-todo)");
+
+			list.splice(id, 1);
+			let tmp = listElem.removeChild(todos[id]);
+
+			for(let i = id; i < todos.length; ++i) --todos[i].dataset.todoid;
+			_saveToStorage();
+			return tmp;
+		}
 
 		/**
 		 * Called when user updates a ToDo value. Will remove empty ToDo. Will save to storage.
@@ -96,7 +120,7 @@ define(function () {
 		 * @param {Event} OnChange-Event-Data
 		 */
 		let _updateToDo = function(ev){
-			let target = _getParent("TR", ev.target);
+			let target = utils.getParent("TR", ev.target);
 			
 			if(ev.target.value.length === 0) return _removeToDo(target.dataset.todoid);
 
@@ -113,7 +137,7 @@ define(function () {
 		 * @param {Event} Event-Data
 		 */
 		let _onFinisheToDo = function(ev){
-			let target = _getParent("TR", ev.target);
+			let target = utils.getParent("TR", ev.target);
 			let input = target.querySelector("input");
 
 			if(target.dataset.cooldownarchiving) return _cancelMovingToArchive(target);
@@ -137,7 +161,7 @@ define(function () {
 		 * @param {Event} Event Data
 		 */
 		let _startArchivingCountdown = function(ev){
-			let target = _getParent("TR", ev.target);
+			let target = utils.getParent("TR", ev.target);
 			let input = target.querySelector("input");
 
 			target.dataset.intervalid = setInterval(_countdown, 1000, target, input);
@@ -162,22 +186,6 @@ define(function () {
 			}
 
 			input.placeholder = COOLDOWN_ARCHIVING_PLACEHOLDER_START+(target.dataset.cooldowntime)+COOLDOWN_ARCHIVING_PLACEHOLDER_END;
-		}
-
-		/**
-		 * Creates and Append a new Archive Entry.
-		 * @function
-		 * @name _createArchiveEntry
-		 * @private
-		 * @param {String} Text
-		 */
-		let _createArchiveEntry = function(text){
-			let added = _createTemplateClone(text);
-
-			added.dataset.archiveid = archive.length;
-			archive[archive.length] = text;
-
-			archiveElem.appendChild(added);
 		}
 
 		/**
@@ -222,27 +230,6 @@ define(function () {
 			delete target.dataset.cooldownarchiving;
 			delete target.dataset.cooldowntime;
 			delete target.dataset.todomessage;
-		}
-		
-		/**
-		 * Removes the ToDo at position 'i'.
-		 * @function
-		 * @name _removeToDo
-		 * @private
-		 * @param {Number} ID
-		 */
-		let _removeToDo = function(id){
-			if(id > list.length || id < 0) return;
-			
-			let x = 0;
-			let todos = listElem.querySelectorAll("tr:not(.new-todo)");
-
-			list.splice(id, 1);
-			let tmp = listElem.removeChild(todos[id]);
-
-			for(let i = id; i < todos.length; ++i) --todos[i].dataset.todoid;
-			_saveToStorage();
-			return tmp;
 		}
 
 		/**
