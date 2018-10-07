@@ -1,5 +1,5 @@
 define(['utils'], function (utils) {
-	return function(addButtonElem, listElem, archiveElem, templateElem) {
+	return function(addButtonElem, listElem, archiveElem, todoTemplateElem, archiveTemplateElem) {
 		/**
 		 * Module that controlls ToDo entries and Archive
 		 * @public
@@ -21,14 +21,15 @@ define(['utils'], function (utils) {
 		let archive = [];
 
 		/**
-		 * Create a clone of template and populate text.
+		 * Create a clone of a template and populate the clone's text.
 		 * @function
 		 * @name _createTemplateClone
 		 * @private
 		 * @param {String} ToDo-Text
+		 * @param {Element} Template
 		 */
-		 let _createTemplateClone = function(text){
-			let added = templateElem.content.cloneNode(true);
+		 let _createTemplateClone = function(text, template){
+			let added = template.content.cloneNode(true);
 
 			added.querySelector("input").value = text;
 					
@@ -44,7 +45,7 @@ define(['utils'], function (utils) {
 		 * @param {Input} New-ToDo-Input
 		 */
 		 let _createToDoEntry = function(text, newToDoInput){
-			let added = _createTemplateClone(text, templateElem);
+			let added = _createTemplateClone(text, todoTemplateElem);
 			
 			added.dataset.todoid = list.length;
 			
@@ -64,12 +65,40 @@ define(['utils'], function (utils) {
 		 * @param {String} Text
 		 */
 		let _createArchiveEntry = function(text){
-			let added = _createTemplateClone(text);
+			let added = _createTemplateClone(text, archiveTemplateElem);
 
 			added.dataset.archiveid = archive.length;
 			archive[archive.length] = text;
 
+			added.querySelector("input").readOnly = true;
+			added.querySelector(".remove-btn").addEventListener("click", _removeArchiveEntry);
+
 			archiveElem.appendChild(added);
+		}
+
+		/**
+		 * Removes the clicked Archive Entry.
+		 * @function
+		 * @name _removeArchiveEntry
+		 * @private
+		 * @param {Event} Click-Event
+		 */
+		let _removeArchiveEntry = function(ev){
+			let id = utils.getParent("TR", ev.target).dataset.archiveid;
+
+			console.log(ev.target);
+
+			if(id > archive.length || id < 0) return;
+			
+			let x = 0;
+			let archivesEntries = archiveElem.querySelectorAll("tr");
+
+			archive.splice(id, 1);
+			let tmp = archiveElem.removeChild(archivesEntries[id]);
+
+			for(let i = id; i < archivesEntries.length; ++i) --archivesEntries[i].dataset.archiveid;
+			_saveToStorage();
+			return tmp;
 		}
 
 		/**
