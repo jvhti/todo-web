@@ -1,5 +1,5 @@
 define(['utils'], function (utils) {
-	return function(addButtonElem, listElem, archiveElem, todoTemplateElem, archiveTemplateElem) {
+	return function(addButtonElem, listElem, archiveElem, todoTemplateElem, archiveTemplateElem, totalTodo, totalArchive) {
 		/**
 		 * Module that controlls ToDo entries and Archive
 		 * @public
@@ -7,7 +7,7 @@ define(['utils'], function (utils) {
 		 */
 
 		/** Cooldown time to remove a completed ToDo */
-		const cooldownArchivingTime = 3;
+		const cooldownArchivingTime = 2;
 
 		/** Start of the message on cooldown placeholder */
 		const COOLDOWN_ARCHIVING_PLACEHOLDER_START = "Will be moved to archive in ";
@@ -85,8 +85,6 @@ define(['utils'], function (utils) {
 		 */
 		let _removeArchiveEntry = function(ev){
 			let id = utils.getParent("TR", ev.target).dataset.archiveid;
-
-			console.log(ev.target);
 
 			if(id > archive.length || id < 0) return;
 			
@@ -176,7 +174,7 @@ define(['utils'], function (utils) {
 
 			target.dataset.todomessage = input.value;
 			input.value = "";
-			input.placeholder = COOLDOWN_ARCHIVING_PLACEHOLDER_START+(cooldownArchivingTime)+COOLDOWN_ARCHIVING_PLACEHOLDER_END;
+			input.placeholder = COOLDOWN_ARCHIVING_PLACEHOLDER_START+(parseInt(cooldownArchivingTime)+1)+COOLDOWN_ARCHIVING_PLACEHOLDER_END;
 
 			target.addEventListener("mouseleave", _startArchivingCountdown);
 			target.addEventListener("archivetodo", _archiveToDo);
@@ -214,7 +212,7 @@ define(['utils'], function (utils) {
 				clearInterval(target.dataset.intervalid);
 			}
 
-			input.placeholder = COOLDOWN_ARCHIVING_PLACEHOLDER_START+(target.dataset.cooldowntime)+COOLDOWN_ARCHIVING_PLACEHOLDER_END;
+			input.placeholder = COOLDOWN_ARCHIVING_PLACEHOLDER_START+(parseInt(target.dataset.cooldowntime)+1)+COOLDOWN_ARCHIVING_PLACEHOLDER_END;
 		}
 
 		/**
@@ -262,7 +260,7 @@ define(['utils'], function (utils) {
 		}
 
 		/**
-		 * Saves ToDo list in LocalStorage and Archive in SessionStorage.
+		 * Saves ToDo list in LocalStorage and Archive in SessionStorage. Updates Total Count.
 		 * @function
 		 * @name _saveToStorage
 		 * @private
@@ -275,6 +273,8 @@ define(['utils'], function (utils) {
 
 			localStorage.setItem('todos', listJSON);
 			sessionStorage.setItem('archive', archiveJSON);
+
+			_updateTotal();
 		}
 
 		/**
@@ -298,6 +298,17 @@ define(['utils'], function (utils) {
 
 			for(let i = 0; i < newList.length; ++i) _createToDoEntry(newList[i], newToDoInput);
 			for(let i = 0; i < newArchive.length; ++i) _createArchiveEntry(newArchive[i]);
+		}
+
+		/**
+		 * Update ToDo and Archive total count.
+		 * @function
+		 * @name _updateTotals
+		 * @private
+		 */
+		let _updateTotal = function(){
+			totalTodo.innerText = list.length;
+			totalArchive.innerText = archive.length;
 		}
 
 		/**
