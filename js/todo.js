@@ -7,7 +7,7 @@ define(['utils'], function (utils) {
 		 */
 
 		/** Save archive to session or to local storage */
-		const saveArchiveToSession = false;
+		const saveArchiveToSession = true;
 
 		/** Cooldown time to remove a completed ToDo */
 		const cooldownArchivingTime = 2;
@@ -52,7 +52,7 @@ define(['utils'], function (utils) {
 			
 			added.dataset.todoid = list.length;
 			
-			list[list.length] = text;
+			list[list.length] = {text, creationDate: new Date()};
 			
 			added.querySelector("input").addEventListener("change", _updateToDo);
 			added.querySelector(".check-btn").addEventListener("click", _onFinisheToDo);
@@ -67,11 +67,11 @@ define(['utils'], function (utils) {
 		 * @private
 		 * @param {String} Text
 		 */
-		let _createArchiveEntry = function(text){
+		let _createArchiveEntry = function(text, creationDate){
 			let added = _createTemplateClone(text, archiveTemplateElem);
 
 			added.dataset.archiveid = archive.length;
-			archive[archive.length] = text;
+			archive[archive.length] = {text, creationDate, finishedDate: new Date()};
 
 			added.querySelector("input").readOnly = true;
 			added.querySelector(".remove-btn").addEventListener("click", _removeArchiveEntry);
@@ -156,7 +156,7 @@ define(['utils'], function (utils) {
 			
 			if(ev.target.value.length === 0) return _removeToDo(target.dataset.todoid);
 
-			list[target.dataset.todoid] = ev.target.value;
+			list[target.dataset.todoid].text = ev.target.value;
 
 			_saveToStorage();
 		}
@@ -229,11 +229,12 @@ define(['utils'], function (utils) {
 		 * @param {Event} ArchiveToDo-Event
 		 */
 		let _archiveToDo = function(ev){
-			let message = list[ev.detail.todoid];
+			let message = list[ev.detail.todoid].text;
+			let creationDate = list[ev.detail.todoid].creationDate;
 			
 			_removeToDo(ev.detail.todoid);
 
-			_createArchiveEntry(message);
+			_createArchiveEntry(message, creationDate);
 			_saveToStorage();
 		}
 
@@ -257,7 +258,7 @@ define(['utils'], function (utils) {
 			}
 
 			// input.value = target.dataset.todomessage;
-			input.value = list[target.dataset.todoid];
+			input.value = list[target.dataset.todoid].text;
 			input.placeholder = "";
 
 			delete target.dataset.cooldownarchiving;
@@ -302,8 +303,8 @@ define(['utils'], function (utils) {
 			let oldArchive = archiveElem.querySelectorAll("tr");
 			oldArchive.forEach((x,i,a) => { x.parentElement.removeChild(x); });
 
-			for(let i = 0; i < newList.length; ++i) _createToDoEntry(newList[i], newToDoInput);
-			for(let i = 0; i < newArchive.length; ++i) _createArchiveEntry(newArchive[i]);
+			for(let i = 0; i < newList.length; ++i) _createToDoEntry(newList[i].text, newToDoInput);
+			for(let i = 0; i < newArchive.length; ++i) _createArchiveEntry(newArchive[i].text);
 
 			_updateTotal();
 		}

@@ -8,7 +8,7 @@ ToDo V1.0
 6 - Can set a ToDo entrie as Finished 					// Ok
 7 - Finished ToDo's goes to the archive					// Ok
 8 - Can delete from archive								// Ok
-9 - Setting for clear the archive when close browser	
-10 - Store created and finished dates
+9 - Setting for clear the archive when close browser	// Ok
+10 - Store created and finished dates					// Ok
 11 - Can use Ctrl+N to create new ToDo 					// Not applied because of design choise (now the new ToDo field won't disapper)
 12 - Can collapse archive or todo lists
