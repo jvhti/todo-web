@@ -137,6 +137,9 @@ define(['utils'], function (utils) {
 
 			list.splice(id, 1);
 			let tmp = listElem.removeChild(todos[id]);
+			
+			tmp.querySelector("input").removeEventListener("change", _updateToDo);
+			tmp.querySelector(".check-btn").removeEventListener("click", _onFinisheToDo);
 
 			for(let i = id; i < todos.length; ++i) --todos[i].dataset.todoid;
 			_saveToStorage();
@@ -183,6 +186,7 @@ define(['utils'], function (utils) {
 			input.value = "";
 			input.placeholder = COOLDOWN_ARCHIVING_PLACEHOLDER_START+(parseInt(cooldownArchivingTime)+1)+COOLDOWN_ARCHIVING_PLACEHOLDER_END;
 
+			target.removeEventListener("change", _updateToDo);
 			target.addEventListener("mouseleave", _startArchivingCountdown);
 			target.addEventListener("archivetodo", _archiveToDo);
 		}
@@ -251,6 +255,7 @@ define(['utils'], function (utils) {
 
 			target.removeEventListener("mouseleave", _startArchivingCountdown);
 			target.removeEventListener("archivetodo", _archiveToDo);
+			target.addEventListener("change", _updateToDo);
 
 			if(target.dataset.intervalid){
 				// console.log("removed Timer");
