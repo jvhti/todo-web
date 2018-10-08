@@ -97,10 +97,10 @@ define(['utils'], function (utils) {
 
 			archive.splice(id, 1);
 			let tmp = archiveElem.removeChild(archivesEntries[id]);
+			tmp.removeEventListener("click", _removeArchiveEntry);
 
 			for(let i = id; i < archivesEntries.length; ++i) --archivesEntries[i].dataset.archiveid;
 			_saveToStorage();
-			return tmp;
 		}
 
 		/**
@@ -143,7 +143,6 @@ define(['utils'], function (utils) {
 
 			for(let i = id; i < todos.length; ++i) --todos[i].dataset.todoid;
 			_saveToStorage();
-			return tmp;
 		}
 
 		/**
