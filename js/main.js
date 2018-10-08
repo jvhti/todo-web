@@ -9,6 +9,6 @@ requirejs(["collapsible", "todo"], function(collapsible, todo) {
 
 	todo(addBtn, todoList, archiveList, todoTemplate, archiveTemplate, totalTodo, totalArchive);
 
-	collapsible();
-
+	let col = collapsible();
+	col.startup();
 });

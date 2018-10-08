@@ -1,4 +1,4 @@
-define(function () {
+define(['utils'], function (utils) {
 	return function(collapsibleControllerClass = "collapsible-controller", collapsedClass = "collapsed"){
 		/**
 		 * Module that controlls collapsible elements and controllers.
@@ -44,11 +44,11 @@ define(function () {
 		 * @function
 		 * @name _toggleCollapsed
 		 * @private
-		 * @param {String} Selector
-		 * @param {Element} Controller that called
+		 * @param {Event} Click-Event
 		 */
-		let _toggleCollapsed = function(selector, cntr){
-			let targets = _getTargets(selector);
+		let _toggleCollapsed = function(ev){
+			let cntr = utils.getParentWithClass(ev.target, collapsibleControllerClass);
+			let targets = _getTargets(cntr.dataset.collapse);
 
 			//console.log("Collapsing ("+selector+")", targets);
 		
@@ -96,6 +96,23 @@ define(function () {
 				else targets[i].classList.remove(collapsedClass);
 			}
 		}
+		
+		/**
+		 * Apply Collapsible to a element
+		 * @function
+		 * @name applyTo
+		 * @public
+		 */
+		let applyTo = function(elem){
+			if(elem.dataset.collapse === undefined){
+				console.warn("Element has collapsible controller class but doesn't have a collapse target.", elem);
+				return;
+			}
+
+			elem.addEventListener("click", _toggleCollapsed);
+
+			_initiateStartupValue(elem.dataset.collapse);
+		}
 
 		/**
 		 * Starts the module. Adds the onClick event listener to controllers and sets the default status.
@@ -106,21 +123,23 @@ define(function () {
 		let startup = function(){
 			let tmp = document.getElementsByClassName(collapsibleControllerClass);
 			//console.log(tmp);
-
-			for(let i = 0; i < tmp.length; ++i){
-				if(tmp[i].dataset.collapse === undefined){
-					console.warn("Element has collapsible controller class but doesn't have a collapse target.", this);
-					continue;
-				}
-
-				tmp[i].addEventListener("click", function(){
-					_toggleCollapsed(this.dataset.collapse, this);
-				});
-
-				_initiateStartupValue(tmp[i].dataset.collapse);
-			}
+	
+			for(let i = 0; i < tmp.length; ++i)	applyTo(tmp[i]);
 		}
 
-		return startup();
+		/**
+		 * Unloads the module. Removes events listeners added by the startup. Won't work in case of calling applyTo a element without the collapsible controller class.
+		 * @function
+		 * @name unload
+		 * @public
+		 */		
+		let unload = function(){
+			let tmp = document.getElementsByClassName(collapsibleControllerClass);
+			
+			for(let i = 0; i < tmp.length; ++i)
+				tmp[i].removeEventListener("click", _toggleCollapsed);
+		}
+
+		return {startup, unload, applyTo};
 	}
 });
