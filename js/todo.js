@@ -293,8 +293,8 @@ define(['utils'], function (utils) {
 		 * @param {String} ToDo-Text
 		 */
 		let _loadFromStorage = function(newToDoInput){
-			let newList = JSON.parse(localStorage.getItem('todos'));
-			let newArchive = JSON.parse((saveArchiveToSession ? sessionStorage : localStorage).getItem('archive'));
+			let newList = JSON.parse(localStorage.getItem('todos')) || [];
+			let newArchive = JSON.parse((saveArchiveToSession ? sessionStorage : localStorage).getItem('archive')) || [];
 			
 			// console.log("Loaded...", newList, newArchive);
 
