@@ -1,0 +1,10 @@
+Images Sources
+
+	noun_Check Mark_5390_000000.svg
+		https://thenounproject.com/term/check-mark/5390/
+
+	icons8-excluir.svg
+		https://icons8.com.br/icon/362/excluir
+	
+	left_chevron.svg
+		http://publicicons.org/left-chevron-icon/
