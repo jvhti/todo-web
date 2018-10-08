@@ -47,6 +47,7 @@ define(['utils'], function (utils) {
 		 * @param {Event} Click-Event
 		 */
 		let _toggleCollapsed = function(ev){
+			ev.preventDefault();
 			let cntr = utils.getParentWithClass(ev.target, collapsibleControllerClass);
 			let targets = _getTargets(cntr.dataset.collapse);
 
