@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
 		<title>ToDo</title>
 		<meta charset="utf-8">
@@ -14,19 +14,21 @@
 				<table class="todo-table">
 					<thead>
 						<tr>
-							<td colspan="3">					
+							<td>&nbsp;</td>
+							<td>					
 								<h2 class="todo-table-title">ToDo</h2>
-								<a href="#" class="collapsible-cntrl-btn collapsible-controller" data-collapse="tbody.todoBody" data-activeClass="active" data-activeTarget="this"><img src="img/left_chevron.svg" style="width: 12px; height: auto;"></a>
+								<a href="#" class="collapsible-cntrl-btn collapsible-controller" data-collapse="tbody.todoBody" data-activeClass="active" data-activeTarget="this"><img src="img/left_chevron.svg" alt="Collapse" style="width: 12px; height: auto;"></a>
 							</td>
+							<td>&nbsp;</td>
 						</tr>
 					</thead>
 					<tbody class="todoBody" data-collapsed="false">
 						<tr class="new-todo">	
-							<td><img class="drag-btn" src="https://png.icons8.com/metro/1600/move-grabber.png"/></td>
+							<td><img class="drag-btn" src="https://png.icons8.com/metro/1600/move-grabber.png" alt="Move"/></td>
 							<td class="todo-input-container">
 						    	<input value="" placeholder="Type here what you want to do." />
 						    </td>
-						    <td><a href="#" class="add-btn" id="add-todo"><img src="https://png.icons8.com/android/1600/plus.png"/></a></td>
+						    <td><a href="#" class="add-btn" id="add-todo"><img src="https://png.icons8.com/android/1600/plus.png" alt="Add"/></a></td>
 						</tr>
 					</tbody>
 					<tfoot>
@@ -42,10 +44,12 @@
 				<table class="todo-table">
 					<thead>
 						<tr>
-							<td colspan="3">					
+							<td>&nbsp;</td>
+							<td>					
 								<h2 class="todo-table-title">Archive</h2>
-								<a href="#" class="collapsible-cntrl-btn collapsible-controller" data-collapse="tbody.archiveBody" data-activeClass="active"><img src="img/left_chevron.svg" style="width: 12px; height: auto;"></a>
+								<a href="#" class="collapsible-cntrl-btn collapsible-controller" data-collapse="tbody.archiveBody" data-activeClass="active"><img src="img/left_chevron.svg" alt="Collapse" style="width: 12px; height: auto;"></a>
 							</td>
+							<td>&nbsp;</td>
 						</tr>
 					</thead>
 					<tbody class="archiveBody" data-collapsed="false">
@@ -66,21 +70,21 @@
 
 		<template id="todoTemplate">
 			<tr>
-				<td><img class="drag-btn" src="https://png.icons8.com/metro/1600/move-grabber.png"/></td>
+				<td><img class="drag-btn" src="https://png.icons8.com/metro/1600/move-grabber.png" alt="Move"/></td>
 				<td class="todo-input-container">
 			    	<input value="Message" placeholder="This entry will be deleted if you leave it empty." />
 			    </td>
-			    <td><a href="#" class="check-btn"><img src="img/noun_Check Mark_5390_000000.svg"/></a></td>
+			    <td><a href="#" class="check-btn"><img src="img/noun_Check Mark_5390_000000.svg" alt="Done"/></a></td>
 			</tr>
 		</template>
 
 		<template id="archiveTemplate">
 			<tr>
-				<td><img class="drag-btn" src="https://png.icons8.com/metro/1600/move-grabber.png"/></td>
+				<td><img class="drag-btn" src="https://png.icons8.com/metro/1600/move-grabber.png" alt="Move"/></td>
 				<td class="todo-input-container">
 			    	<input value="Message" placeholder="This entry will be deleted if you leave it empty." />
 			    </td>
-			    <td><a href="#" class="remove-btn"><img src="img/icons8-excluir.svg"/></a></td>
+			    <td><a href="#" class="remove-btn"><img src="img/icons8-excluir.svg" alt="Remove"/></a></td>
 			</tr>
 		</template>
 
