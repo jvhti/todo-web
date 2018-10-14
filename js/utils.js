@@ -18,5 +18,20 @@ define(function () {
 	 	return getParent(tag, elem.parentElement);
 	}
 
-	return { getParent };
+
+	/**
+	 * Helper function to get the first parent of a element with a class name (and if needed with a set tag).
+	 * @function
+	 * @name getParentWithClass
+	 * @public
+	 * @param {Element} Starting point
+	 * @param {String} Class to search for
+	 * @param {String} Tag to search for
+	 */
+	let getParentWithClass = function(elem, className, tag="*"){
+	 	if(elem.classList.contains(className) && (tag === "*" || tag === elem.tagName)) return elem;
+	 	return getParentWithClass(elem.parentElement, className, tag);
+	}
+
+	return { getParent, getParentWithClass };
 });
