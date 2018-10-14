@@ -60,7 +60,6 @@ define(['utils', 'sortable'], function (utils, sortable) {
 			
 			added.querySelector("input").addEventListener("change", _updateToDo);
 			added.querySelector(".check-btn").addEventListener("click", _onFinisheToDo);
-			listSortable.activate(added.querySelector(".drag-btn"));
 			
 			listElem.insertBefore(added, utils.getParent("TR", newToDoInput));
 		 }
@@ -287,7 +286,7 @@ define(['utils', 'sortable'], function (utils, sortable) {
 			let listJSON = JSON.stringify(list);
 			let archiveJSON = JSON.stringify(archive);
 			
-			// console.log("Saving...", listJSON, archiveJSON);
+			console.log("Saving...", listJSON, archiveJSON);
 
 			localStorage.setItem('todos', listJSON);
 			(saveArchiveToSession ? sessionStorage : localStorage).setItem('archive', archiveJSON);
@@ -306,7 +305,7 @@ define(['utils', 'sortable'], function (utils, sortable) {
 			let newList = JSON.parse(localStorage.getItem('todos')) || [];
 			let newArchive = JSON.parse((saveArchiveToSession ? sessionStorage : localStorage).getItem('archive')) || [];
 			
-			// console.log("Loaded...", newList, newArchive);
+			console.log("Loaded...", newList, newArchive);
 
 			let oldTodos = listElem.querySelectorAll("tr:not(.new-todo)");
 			oldTodos.forEach((x,i,a) => { x.parentElement.removeChild(x); });
@@ -347,6 +346,10 @@ define(['utils', 'sortable'], function (utils, sortable) {
 			_loadFromStorage(newToDoInput);
 
 			// let archiveSortable = sortable(archive);
+
+			listSortable.startup();
+
+			listElem.addEventListener("sortableUpdate", () => { _saveToStorage(); });
 
 			console.log("LIST: ",list);
 		}
