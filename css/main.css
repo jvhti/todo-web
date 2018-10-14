@@ -30,6 +30,9 @@ body {
   width: 100%;
   margin: auto;
 }
+body main {
+  position: relative;
+}
 
 table.todo-table {
   border-collapse: collapse;
