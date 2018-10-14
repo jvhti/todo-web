@@ -1,4 +1,4 @@
-define(['utils'], function (utils) {
+define(['utils', 'sortable'], function (utils, sortable) {
 	return function(addButtonElem, listElem, archiveElem, todoTemplateElem, archiveTemplateElem, totalTodo, totalArchive) {
 		/**
 		 * Module that controlls ToDo entries and Archive
@@ -22,6 +22,9 @@ define(['utils'], function (utils) {
 
 		/** Archive of completed ToDo */
 		let archive = [];
+
+		/** Sortable module instance for list */
+		let listSortable = sortable(list, listElem);
 
 		/**
 		 * Create a clone of a template and populate the clone's text.
@@ -57,6 +60,7 @@ define(['utils'], function (utils) {
 			
 			added.querySelector("input").addEventListener("change", _updateToDo);
 			added.querySelector(".check-btn").addEventListener("click", _onFinisheToDo);
+			listSortable.activate(added.querySelector(".drag-btn"));
 			
 			listElem.insertBefore(added, utils.getParent("TR", newToDoInput));
 		 }
@@ -295,8 +299,8 @@ define(['utils'], function (utils) {
 		 * @param {String} ToDo-Text
 		 */
 		let _loadFromStorage = function(newToDoInput){
-			let newList = JSON.parse(localStorage.getItem('todos'));
-			let newArchive = JSON.parse((saveArchiveToSession ? sessionStorage : localStorage).getItem('archive'));
+			let newList = JSON.parse(localStorage.getItem('todos')) || [];
+			let newArchive = JSON.parse((saveArchiveToSession ? sessionStorage : localStorage).getItem('archive')) || [];
 			
 			// console.log("Loaded...", newList, newArchive);
 
@@ -338,7 +342,9 @@ define(['utils'], function (utils) {
 
 			_loadFromStorage(newToDoInput);
 
-			console.log(archive);
+			// let archiveSortable = sortable(archive);
+
+			console.log("LIST: ",list);
 		}
 
 		return startup();
