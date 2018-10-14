@@ -24,7 +24,10 @@ define(['utils', 'sortable'], function (utils, sortable) {
 		let archive = [];
 
 		/** Sortable module instance for list */
-		let listSortable = sortable(list, listElem);
+		let listSortable = sortable(listElem);
+
+		/** Sortable module instance for archive */
+		let archiveSortable = sortable(archiveElem);
 
 		/**
 		 * Create a clone of a template and populate the clone's text.
@@ -283,13 +286,20 @@ define(['utils', 'sortable'], function (utils, sortable) {
 		 * @private
 		 */
 		let _saveToStorage = function(){
-			let listJSON = JSON.stringify(list);
-			let archiveJSON = JSON.stringify(archive);
-			
-			console.log("Saving...", listJSON, archiveJSON);
+			// let listJSON = JSON.stringify(list);
+			// let archiveJSON = JSON.stringify(archive);
+			let sortedList = [];
+			let sortedArchive = []
+			let listChilds = listElem.querySelectorAll("tr");
+			let archiveChilds = archiveElem.querySelectorAll("tr");
 
-			localStorage.setItem('todos', listJSON);
-			(saveArchiveToSession ? sessionStorage : localStorage).setItem('archive', archiveJSON);
+			for (var i = 0; i < listChilds.length - 1; i++)	sortedList[i] = list[listChilds[i].dataset.todoid];
+			for (var i = 0; i < archiveChilds.length; i++)	sortedArchive[i] = archive[archiveChilds[i].dataset.archiveid];
+			
+			// console.log("Saving...", sortedList, sortedArchive);
+
+			localStorage.setItem('todos', JSON.stringify(sortedList));
+			(saveArchiveToSession ? sessionStorage : localStorage).setItem('archive', JSON.stringify(sortedArchive));
 
 			_updateTotal();
 		}
@@ -305,7 +315,7 @@ define(['utils', 'sortable'], function (utils, sortable) {
 			let newList = JSON.parse(localStorage.getItem('todos')) || [];
 			let newArchive = JSON.parse((saveArchiveToSession ? sessionStorage : localStorage).getItem('archive')) || [];
 			
-			console.log("Loaded...", newList, newArchive);
+			// console.log("Loaded...", newList, newArchive);
 
 			let oldTodos = listElem.querySelectorAll("tr:not(.new-todo)");
 			oldTodos.forEach((x,i,a) => { x.parentElement.removeChild(x); });
@@ -345,13 +355,13 @@ define(['utils', 'sortable'], function (utils, sortable) {
 
 			_loadFromStorage(newToDoInput);
 
-			// let archiveSortable = sortable(archive);
-
 			listSortable.startup();
+			archiveSortable.startup();
 
 			listElem.addEventListener("sortableUpdate", () => { _saveToStorage(); });
+			archiveElem.addEventListener("sortableUpdate", () => { _saveToStorage(); });
 
-			console.log("LIST: ",list);
+			// console.log("LIST: ",list);
 		}
 
 		return startup();

@@ -11,15 +11,14 @@ define(["../dist/js/Sortable.min","utils"], function (Sortable, utils) {
 	 * @public
 	 * @module Sortable
 	 */
-	return function(list, listElem){
+	return function(container){
 		let sortableObj = null;
 
 		let startup = function(){
-			// console.log("Started", listElem);
+			// console.log("Started", container);
 
-			sortableObj = Sortable.create(listElem, {
+			sortableObj = Sortable.create(container, {
 				handle: ".drag-btn",
-				filter: ".drag-btn-add",
 				draggable: "tr:not(.new-todo)",
 				onUpdate: function(e){
 					let ev = new CustomEvent("sortableUpdate");
