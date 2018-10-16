@@ -17,18 +17,18 @@
 							<td>&nbsp;</td>
 							<td>					
 								<h2 class="list-table__title">ToDo</h2>
-								<a href="#" class="button--collapsible-controller button" data-collapse="tbody.list-table__body--todo" data-activeClass="active" data-activeTarget="this"><img src="img/left_chevron.svg" alt="Collapse"></a>
+								<a href="#" role="button" class="button--collapsible-controller button" data-collapse="tbody.list-table__body--todo" data-activeClass="active" data-activeTarget="this"><img src="img/left_chevron.svg" alt="Collapse"></a>
 							</td>
 							<td>&nbsp;</td>
 						</tr>
 					</thead>
 					<tbody class="list-table__body list-table__body--todo" data-collapsed="false">
 						<tr class="list-table__entry list-table__entry--new-todo">	
-							<td><a href="#" class="button button--drag"><img src="img/OOjs_UI_icon_draggable.svg" alt="Move"/></a></td>
+							<td><a href="#" role="button" class="button button--drag"><img src="img/OOjs_UI_icon_draggable.svg" alt="Move"/></a></td>
 							<td class="list-table__entry-input-container">
 						    	<input value="" placeholder="Type here what you want to do." />
 						    </td>
-						    <td><a href="#" class="button button-add" id="add-todo"><img src="img/icons8-plus.svg" alt="Add"/></a></td>
+						    <td><a href="#" role="button" class="button button-add" id="add-todo"><img src="img/icons8-plus.svg" alt="Add"/></a></td>
 						</tr>
 					</tbody>
 					<tfoot>
@@ -47,7 +47,7 @@
 							<td>&nbsp;</td>
 							<td>					
 								<h2 class="list-table__title">Archive</h2>
-								<a href="#" class="button button--collapsible-controller" data-collapse="tbody.list-table__body--archive" data-activeClass="active"><img src="img/left_chevron.svg" alt="Collapse"></a>
+								<a href="#" role="button" class="button button--collapsible-controller" data-collapse="tbody.list-table__body--archive" data-activeClass="active"><img src="img/left_chevron.svg" alt="Collapse"></a>
 							</td>
 							<td>&nbsp;</td>
 						</tr>
@@ -70,21 +70,21 @@
 
 		<template id="todoTemplate">
 			<tr class="list-table__entry">
-				<td><a href="#" class="button button--drag"><img src="img/OOjs_UI_icon_draggable.svg" alt="Move"/></a></td>
+				<td><a href="#" role="button" class="button button--drag"><img src="img/OOjs_UI_icon_draggable.svg" alt="Move"/></a></td>
 				<td class="list-table__entry-input-container">
 			    	<input value="Message" placeholder="This entry will be deleted if you leave it empty." />
 			    </td>
-			    <td><a href="#" class="button button--check"><img src="img/noun_Check Mark_5390_000000.svg" alt="Done"/></a></td>
+			    <td><a href="#" role="button" class="button button--check"><img src="img/noun_Check Mark_5390_000000.svg" alt="Done"/></a></td>
 			</tr>
 		</template>
 
 		<template id="archiveTemplate">
 			<tr class="list-table__entry list-table__entry--archive">
-				<td><a href="#" class="button button--drag"><img src="img/OOjs_UI_icon_draggable.svg" alt="Move"/></a></td>
+				<td><a href="#" role="button" class="button button--drag"><img src="img/OOjs_UI_icon_draggable.svg" alt="Move"/></a></td>
 				<td class="list-table__entry-input-container">
 			    	<input value="Message" placeholder="This entry will be deleted if you leave it empty." />
 			    </td>
-			    <td><a href="#" class="button button--remove"><img src="img/icons8-excluir.svg" alt="Remove"/></a></td>
+			    <td><a href="#" role="button" class="button button--remove"><img src="img/icons8-excluir.svg" alt="Remove"/></a></td>
 			</tr>
 		</template>
 
