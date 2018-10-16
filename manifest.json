@@ -1,0 +1,13 @@
+{
+  "name": "ToDo-Web",
+  "short_name": "ToDo",
+  "lang": "en-US",
+  "description": "A simple ToDo Web App to showcase my skills.",
+  "theme_color": "rgba(34,111,172,0.7)",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "Scope": "/",
+  "start_url": "/",
+  "icons": null,
+  "splash_pages": null
+}
