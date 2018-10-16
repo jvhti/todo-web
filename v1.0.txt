@@ -1,4 +1,4 @@
-ToDo V1.0
+ToDo V1.0 - Finished
 
 1 - Create new ToDo entrie 								// Ok
 2 - Navigate using TAB									// Ok
@@ -11,4 +11,4 @@ ToDo V1.0
 9 - Setting for clear the archive when close browser	// Ok
 10 - Store created and finished dates					// Ok
 11 - Can use Ctrl+N to create new ToDo 					// Not applied because of design choise (now the new ToDo field won't disapper)
-12 - Can collapse archive or todo lists
+12 - Can collapse archive or todo lists					// Ok
