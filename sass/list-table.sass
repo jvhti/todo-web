@@ -21,10 +21,6 @@
 			overflow-y: hidden
 			display: none !important
 
-		// &--todo
-
-		// &--archive
-
 	&__entry
 		&--archive
 			input
@@ -44,6 +40,8 @@
 
 		&-input-container
 			position: relative
+			& > label
+				@include sr-only()
 			& > input
 				position: absolute
 				font-family:  'Open Sans', sans-serif

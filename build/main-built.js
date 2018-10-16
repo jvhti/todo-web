@@ -310,7 +310,14 @@ define('todo',['utils', 'sortable'], function (utils, sortable) {
 			
 			list[list.length] = {text, creationDate};
 			
-			added.querySelector("input").addEventListener("change", _updateToDo);
+			let input = added.querySelector("input");
+			input.id = "todoEntry"+added.dataset.todoid;
+			input.addEventListener("change", _updateToDo);
+
+			let label = added.querySelector("label");
+			label.setAttribute("for", input.id);
+			label.innerText += (parseInt(added.dataset.todoid) + 1);
+
 			added.querySelector(".button--check").addEventListener("click", _onFinisheToDo);
 			
 			listElem.insertBefore(added, utils.getParent("TR", newToDoInput));
@@ -330,7 +337,15 @@ define('todo',['utils', 'sortable'], function (utils, sortable) {
 			added.dataset.archiveid = archive.length;
 			archive[archive.length] = {text, creationDate, finishedDate};
 
-			added.querySelector("input").readOnly = true;
+			let input = added.querySelector("input");
+			input.readOnly = true;
+			input.id = "archiveEntry"+added.dataset.archiveid;
+
+			let label = added.querySelector("label");
+			label.setAttribute("for", input.id);
+			label.innerText += (parseInt(added.dataset.archiveid) + 1);
+
+			added.querySelector("label").setAttribute("for", input.id);
 			added.querySelector(".button--remove").addEventListener("click", _removeArchiveEntry);
 
 			archiveElem.appendChild(added);
@@ -617,7 +632,12 @@ define('todo',['utils', 'sortable'], function (utils, sortable) {
 	};
 });
 
-/** Entry point for RequireJS. Selects needed elements and start the ToDo and Collapsible Modules. */
+/**
+ * @projectname ToDo-Web
+ * @version 1.0
+ * @author João Víctor de Oliveira Santos (jvhti@hotmail.com)
+ * @file Entry point for RequireJS. Selects needed elements and start the ToDo and Collapsible Modules.
+ */
 requirejs(["collapsible", "todo"], function(collapsible, todo) {
 	let addBtn = document.getElementById("add-todo");
 	let todoList = document.getElementsByClassName("list-table__body--todo")[0];
