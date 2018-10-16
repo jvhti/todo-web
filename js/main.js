@@ -1,4 +1,9 @@
-/** Entry point for RequireJS. Selects needed elements and start the ToDo and Collapsible Modules. */
+/**
+ * @projectname ToDo-Web
+ * @version 1.0
+ * @author João Víctor de Oliveira Santos (jvhti@hotmail.com)
+ * @file Entry point for RequireJS. Selects needed elements and start the ToDo and Collapsible Modules.
+ */
 requirejs(["collapsible", "todo"], function(collapsible, todo) {
 	let addBtn = document.getElementById("add-todo");
 	let todoList = document.getElementsByClassName("list-table__body--todo")[0];

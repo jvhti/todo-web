@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: sortable.js</title>
+    <title>JSDoc: Source: main.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: sortable.js</h1>
+    <h1 class="page-title">Source: main.js</h1>
 
     
 
@@ -26,50 +26,25 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>define(["../dist/js/Sortable.min","utils"], function (Sortable, utils) {
-	/**
-	 * Sortable module, lets lists be rearranged.
-	 * @public
-	 * @module Sortable
- 	 * @param {Element} container ToDo List or Archive
-	 */
-	return function(container){
-		/** Sortable.js object for current instance. */
-		let sortableObj = null;
+            <pre class="prettyprint source linenums"><code>/**
+ * @projectname ToDo-Web
+ * @version 1.0
+ * @author João Víctor de Oliveira Santos (jvhti@hotmail.com)
+ * @file Entry point for RequireJS. Selects needed elements and start the ToDo and Collapsible Modules.
+ */
+requirejs(["collapsible", "todo"], function(collapsible, todo) {
+	let addBtn = document.getElementById("add-todo");
+	let todoList = document.getElementsByClassName("list-table__body--todo")[0];
+	let archiveList = document.getElementsByClassName("list-table__body--archive")[0];
+	let todoTemplate = document.getElementById("todoTemplate");
+	let archiveTemplate = document.getElementById("archiveTemplate");
+	let totalArchive = document.getElementById("totalArchive");
+	let totalTodo = document.getElementById("totalTodo");
 
-		/**
-		 * Start the Sortable.js on the container given by Constructor.
-		 * @function
-		 * @name startup
-		 * @public
-		 */
-		let startup = function(){
-			// console.log("Started", container);
+	todo(addBtn, todoList, archiveList, todoTemplate, archiveTemplate, totalTodo, totalArchive);
 
-			sortableObj = Sortable.create(container, {
-				handle: ".button--drag",
-				draggable: "tr:not(.list-table__entry--new-todo)",
-				onUpdate: function(e){
-					let ev = new CustomEvent("sortableUpdate");
-					e.target.dispatchEvent(ev);
-				}
-			});
-
-		}
-
-
-		/**
-		 * Destroy Sortable.js on the container given by Constructor.
-		 * @function
-		 * @name remove
-		 * @public
-		 */
-		let remove = function(){
-			sortableObj.destroy();
-		}
-
-		return {startup, remove};
-	};
+	let col = collapsible("button--collapsible-controller", "list-table__body--collapsed");
+	col.startup();
 });
 </code></pre>
         </article>
