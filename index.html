@@ -3,7 +3,7 @@
 	<head>
 		<title>ToDo</title>
 		<meta charset="utf-8">
-		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="build/css/main.css">
 	</head>
 	<body>
 		<header>
@@ -24,11 +24,11 @@
 					</thead>
 					<tbody class="list-table__body list-table__body--todo" data-collapsed="false">
 						<tr class="list-table__entry list-table__entry--new-todo">	
-							<td><a href="#" class="button button--drag"><img src="img/icons8-move-grabber-100.png" alt="Move"/></a></td>
+							<td><a href="#" class="button button--drag"><img src="img/OOjs_UI_icon_draggable.svg" alt="Move"/></a></td>
 							<td class="list-table__entry-input-container">
 						    	<input value="" placeholder="Type here what you want to do." />
 						    </td>
-						    <td><a href="#" class="button button-add" id="add-todo"><img src="https://png.icons8.com/android/1600/plus.png" alt="Add"/></a></td>
+						    <td><a href="#" class="button button-add" id="add-todo"><img src="img/icons8-plus.svg" alt="Add"/></a></td>
 						</tr>
 					</tbody>
 					<tfoot>
@@ -70,7 +70,7 @@
 
 		<template id="todoTemplate">
 			<tr class="list-table__entry">
-				<td><a href="#" class="button button--drag"><img src="img/icons8-move-grabber-100.png" alt="Move"/></a></td>
+				<td><a href="#" class="button button--drag"><img src="img/OOjs_UI_icon_draggable.svg" alt="Move"/></a></td>
 				<td class="list-table__entry-input-container">
 			    	<input value="Message" placeholder="This entry will be deleted if you leave it empty." />
 			    </td>
@@ -80,7 +80,7 @@
 
 		<template id="archiveTemplate">
 			<tr class="list-table__entry list-table__entry--archive">
-				<td><a href="#" class="button button--drag"><img src="img/icons8-move-grabber-100.png" alt="Move"/></a></td>
+				<td><a href="#" class="button button--drag"><img src="img/OOjs_UI_icon_draggable.svg" alt="Move"/></a></td>
 				<td class="list-table__entry-input-container">
 			    	<input value="Message" placeholder="This entry will be deleted if you leave it empty." />
 			    </td>
@@ -88,6 +88,8 @@
 			</tr>
 		</template>
 
-		<script data-main="js/main" src="dist/js/require.js"></script>
+		<!-- <script data-main="js/main" src="dist/js/require.js"></script> -->
+		<!-- <script data-main="build/main-built" src="dist/js/require.js"></script> -->
+		<script data-main="build/main-built.min" src="dist/js/require.js"></script>
 	</body>
 </html>
