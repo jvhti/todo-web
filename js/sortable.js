@@ -1,15 +1,8 @@
-
-// require.config({
-//     paths: {
-//     	"SortableJS": "../dist/js/Sortable.min"
-//     }
-// }
-
 define(["../dist/js/Sortable.min","utils"], function (Sortable, utils) {
 	/**
 	 * Sortable module, lets lists be rearranged.
 	 * @public
-	 * @module Sortable
+	 * @module Sortable'
  	 * @param {Element} container ToDo List or Archive
 	 */
 	return function(container){
