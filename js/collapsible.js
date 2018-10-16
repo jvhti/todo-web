@@ -123,7 +123,7 @@ define(['utils'], function (utils) {
 		 */
 		let startup = function(){
 			let tmp = document.getElementsByClassName(collapsibleControllerClass);
-			//console.log(tmp);
+			// console.log(tmp);
 	
 			for(let i = 0; i < tmp.length; ++i)	applyTo(tmp[i]);
 		}

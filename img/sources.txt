@@ -8,3 +8,6 @@ Images Sources
 	
 	left_chevron.svg
 		http://publicicons.org/left-chevron-icon/
+
+	icons8-move-grabber-100.png	
+		https://icons8.com/icon/39003/move-grabber

@@ -1,7 +1,7 @@
 requirejs(["collapsible", "todo"], function(collapsible, todo) {
 	let addBtn = document.getElementById("add-todo");
-	let todoList = document.getElementsByClassName("todoBody")[0];
-	let archiveList = document.getElementsByClassName("archiveBody")[0];
+	let todoList = document.getElementsByClassName("list-table__body--todo")[0];
+	let archiveList = document.getElementsByClassName("list-table__body--archive")[0];
 	let todoTemplate = document.getElementById("todoTemplate");
 	let archiveTemplate = document.getElementById("archiveTemplate");
 	let totalArchive = document.getElementById("totalArchive");
@@ -9,6 +9,6 @@ requirejs(["collapsible", "todo"], function(collapsible, todo) {
 
 	todo(addBtn, todoList, archiveList, todoTemplate, archiveTemplate, totalTodo, totalArchive);
 
-	let col = collapsible();
+	let col = collapsible("button--collapsible-controller", "list-table__body--collapsed");
 	col.startup();
 });

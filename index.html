@@ -11,29 +11,29 @@
 		</header>
 		<main>
 			<section>
-				<table class="todo-table">
-					<thead>
+				<table class="list-table">
+					<thead class="list-table__head">
 						<tr>
 							<td>&nbsp;</td>
 							<td>					
-								<h2 class="todo-table-title">ToDo</h2>
-								<a href="#" class="collapsible-cntrl-btn collapsible-controller" data-collapse="tbody.todoBody" data-activeClass="active" data-activeTarget="this"><img src="img/left_chevron.svg" alt="Collapse" style="width: 12px; height: auto;"></a>
+								<h2 class="list-table__title">ToDo</h2>
+								<a href="#" class="button--collapsible-controller button" data-collapse="tbody.list-table__body--todo" data-activeClass="active" data-activeTarget="this"><img src="img/left_chevron.svg" alt="Collapse"></a>
 							</td>
 							<td>&nbsp;</td>
 						</tr>
 					</thead>
-					<tbody class="todoBody" data-collapsed="false">
-						<tr class="new-todo">	
-							<td><img class="drag-btn" src="https://png.icons8.com/metro/1600/move-grabber.png" alt="Move"/></td>
-							<td class="todo-input-container">
+					<tbody class="list-table__body list-table__body--todo" data-collapsed="false">
+						<tr class="list-table__entry list-table__entry--new-todo">	
+							<td><a href="#" class="button button--drag"><img src="img/icons8-move-grabber-100.png" alt="Move"/></a></td>
+							<td class="list-table__entry-input-container">
 						    	<input value="" placeholder="Type here what you want to do." />
 						    </td>
-						    <td><a href="#" class="add-btn" id="add-todo"><img src="https://png.icons8.com/android/1600/plus.png" alt="Add"/></a></td>
+						    <td><a href="#" class="button button-add" id="add-todo"><img src="https://png.icons8.com/android/1600/plus.png" alt="Add"/></a></td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr>
-							<td class="total-todo" colspan="3">
+							<td class="list-table__total-count" colspan="3">
 								Total: <span id="totalTodo">0</span>
 							</td>
 						</tr>
@@ -41,22 +41,22 @@
 				</table>
 			</section>
 			<section>
-				<table class="todo-table">
-					<thead>
+				<table class="list-table">
+					<thead class="list-table__head">
 						<tr>
 							<td>&nbsp;</td>
 							<td>					
-								<h2 class="todo-table-title">Archive</h2>
-								<a href="#" class="collapsible-cntrl-btn collapsible-controller" data-collapse="tbody.archiveBody" data-activeClass="active"><img src="img/left_chevron.svg" alt="Collapse" style="width: 12px; height: auto;"></a>
+								<h2 class="list-table__title">Archive</h2>
+								<a href="#" class="button button--collapsible-controller" data-collapse="tbody.list-table__body--archive" data-activeClass="active"><img src="img/left_chevron.svg" alt="Collapse"></a>
 							</td>
 							<td>&nbsp;</td>
 						</tr>
 					</thead>
-					<tbody class="archiveBody" data-collapsed="false">
+					<tbody class="list-table__body list-table__body--archive" data-collapsed="false">
 					</tbody>
 					<tfoot>
 						<tr>
-							<td class="total-todo" colspan="3">
+							<td class="list-table__total-count" colspan="3">
 								Total: <span id="totalArchive">0</span>
 							</td>
 						</tr>
@@ -69,22 +69,22 @@
 		</footer>
 
 		<template id="todoTemplate">
-			<tr>
-				<td><img class="drag-btn" src="https://png.icons8.com/metro/1600/move-grabber.png" alt="Move"/></td>
-				<td class="todo-input-container">
+			<tr class="list-table__entry">
+				<td><a href="#" class="button button--drag"><img src="img/icons8-move-grabber-100.png" alt="Move"/></a></td>
+				<td class="list-table__entry-input-container">
 			    	<input value="Message" placeholder="This entry will be deleted if you leave it empty." />
 			    </td>
-			    <td><a href="#" class="check-btn"><img src="img/noun_Check Mark_5390_000000.svg" alt="Done"/></a></td>
+			    <td><a href="#" class="button button--check"><img src="img/noun_Check Mark_5390_000000.svg" alt="Done"/></a></td>
 			</tr>
 		</template>
 
 		<template id="archiveTemplate">
-			<tr>
-				<td><img class="drag-btn" src="https://png.icons8.com/metro/1600/move-grabber.png" alt="Move"/></td>
-				<td class="todo-input-container">
+			<tr class="list-table__entry list-table__entry--archive">
+				<td><a href="#" class="button button--drag"><img src="img/icons8-move-grabber-100.png" alt="Move"/></a></td>
+				<td class="list-table__entry-input-container">
 			    	<input value="Message" placeholder="This entry will be deleted if you leave it empty." />
 			    </td>
-			    <td><a href="#" class="remove-btn"><img src="img/icons8-excluir.svg" alt="Remove"/></a></td>
+			    <td><a href="#" class="button button--remove"><img src="img/icons8-excluir.svg" alt="Remove"/></a></td>
 			</tr>
 		</template>
 

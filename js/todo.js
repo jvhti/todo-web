@@ -62,7 +62,7 @@ define(['utils', 'sortable'], function (utils, sortable) {
 			list[list.length] = {text, creationDate};
 			
 			added.querySelector("input").addEventListener("change", _updateToDo);
-			added.querySelector(".check-btn").addEventListener("click", _onFinisheToDo);
+			added.querySelector(".button--check").addEventListener("click", _onFinisheToDo);
 			
 			listElem.insertBefore(added, utils.getParent("TR", newToDoInput));
 		 }
@@ -82,7 +82,7 @@ define(['utils', 'sortable'], function (utils, sortable) {
 			archive[archive.length] = {text, creationDate, finishedDate};
 
 			added.querySelector("input").readOnly = true;
-			added.querySelector(".remove-btn").addEventListener("click", _removeArchiveEntry);
+			added.querySelector(".button--remove").addEventListener("click", _removeArchiveEntry);
 
 			archiveElem.appendChild(added);
 		}
@@ -141,13 +141,13 @@ define(['utils', 'sortable'], function (utils, sortable) {
 			if(id > list.length || id < 0) return;
 			
 			let x = 0;
-			let todos = listElem.querySelectorAll("tr:not(.new-todo)");
+			let todos = listElem.querySelectorAll("tr:not(.list-table__entry--new-todo)");
 
 			list.splice(id, 1);
 			let tmp = listElem.removeChild(todos[id]);
 			
 			tmp.querySelector("input").removeEventListener("change", _updateToDo);
-			tmp.querySelector(".check-btn").removeEventListener("click", _onFinisheToDo);
+			tmp.querySelector(".button--check").removeEventListener("click", _onFinisheToDo);
 
 			for(let i = id; i < todos.length; ++i) --todos[i].dataset.todoid;
 			_saveToStorage();
@@ -317,7 +317,7 @@ define(['utils', 'sortable'], function (utils, sortable) {
 			
 			// console.log("Loaded...", newList, newArchive);
 
-			let oldTodos = listElem.querySelectorAll("tr:not(.new-todo)");
+			let oldTodos = listElem.querySelectorAll("tr:not(.list-table__entry--new-todo)");
 			oldTodos.forEach((x,i,a) => { x.parentElement.removeChild(x); });
 
 			let oldArchive = archiveElem.querySelectorAll("tr");
