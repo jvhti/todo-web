@@ -8,6 +8,9 @@ Images Sources
 	
 	left_chevron.svg
 		http://publicicons.org/left-chevron-icon/
+	
+	OOjs_UI_icon_draggable.svg
+		https://commons.wikimedia.org/wiki/File:OOjs_UI_icon_draggable.svg
 
-	icons8-move-grabber-100.png	
-		https://icons8.com/icon/39003/move-grabber
+	icons8-plus.svg
+		https://icons8.com/icon/3220/plus
