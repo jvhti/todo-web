@@ -21,6 +21,7 @@ define(["../dist/js/Sortable.min","utils"], function (Sortable, utils) {
 			sortableObj = Sortable.create(container, {
 				handle: ".button--drag",
 				draggable: "tr:not(.list-table__entry--new-todo)",
+				animation: 150,
 				onUpdate: function(e){
 					let ev = new CustomEvent("sortableUpdate");
 					e.target.dispatchEvent(ev);

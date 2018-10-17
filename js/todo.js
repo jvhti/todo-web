@@ -150,6 +150,9 @@ define(['utils', 'sortable'], function (utils, sortable) {
 			_createToDoEntry(newToDoInput.value.trim(), newToDoInput);
 
 			newToDoInput.value = "";
+			
+			newToDoInput.focus();
+			newToDoInput.scrollIntoView(false);
 
 			_saveToStorage();
 		}
@@ -206,7 +209,11 @@ define(['utils', 'sortable'], function (utils, sortable) {
 		 * @param {Event} Event-Data
 		 */
 		let _onFinisheToDo = function(ev){
+			utils.getParent("TR", addButtonElem).querySelector("input").blur();
+
+			ev.target.focus();
 			ev.preventDefault();
+
 			let target = utils.getParent("TR", ev.target);
 			let input = target.querySelector("input");
 
@@ -226,7 +233,6 @@ define(['utils', 'sortable'], function (utils, sortable) {
 
 			if(ev.type === "touchend")
 				_startArchivingCountdown(ev);
-
 		}
 
 		/**
@@ -325,14 +331,12 @@ define(['utils', 'sortable'], function (utils, sortable) {
 			let listChilds = listElem.querySelectorAll("tr");
 			let archiveChilds = archiveElem.querySelectorAll("tr");
 
-			console.log(archiveChilds);
-
 			for (var i = 0; i < listChilds.length - 1; i++)	{
 				if(i == listChilds[i].dataset.todoid){
 					sortedList[i] = list[i];
 					continue;
 				}
-				
+
 				sortedList[i] = list[listChilds[i].dataset.todoid];
 				listChilds[i].dataset.todoid = i;
 
