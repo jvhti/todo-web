@@ -78,6 +78,8 @@ define(['utils'], function (utils) {
 		
 			cntr.setAttribute("aria-pressed", status);
 
+			if(cntr.dataset.saveas !== undefined && cntr.dataset.saveas.length !== 0) sessionStorage.setItem(cntr.dataset.saveas, status.toString());
+
 			if(cls === undefined || cntr.dataset.activeclass.length == 0) return;
 
 			if(elem.length == 0 || elem === "this") targets[0] = cntr;
@@ -94,13 +96,17 @@ define(['utils'], function (utils) {
 		 * @function
 		 * @name _initiateStartupValue
 		 * @private
+		 * @param {Element} Controller
 		 * @param {String} Selector
 		 */
-		let _initiateStartupValue = function(selector){
+		let _initiateStartupValue = function(elem, selector){
 			let targets = _getTargets(selector);
-		
+			let status = false;
+
+			if(elem.dataset.saveas !== undefined && elem.dataset.saveas.length !== 0) status = (sessionStorage.getItem(elem.dataset.saveas).toLowerCase() === "true");
+
 			for(let i = 0; i < targets.length; ++i){
-				if(String(targets[i].dataset.collapsed).toLowerCase() === "true") targets[i].classList.add(collapsedClass);
+				if(String(targets[i].dataset.collapsed).toLowerCase() === "true" || status) targets[i].classList.add(collapsedClass);
 				else targets[i].classList.remove(collapsedClass);
 			}
 		}
@@ -119,7 +125,7 @@ define(['utils'], function (utils) {
 
 			elem.addEventListener("click", _toggleCollapsed);
 
-			_initiateStartupValue(elem.dataset.collapse);
+			_initiateStartupValue(elem, elem.dataset.collapse);
 		}
 
 		/**
