@@ -361,7 +361,7 @@ define(['utils', 'sortable'], function (utils, sortable) {
 				label.innerText = "Text of Archive " + (parseInt(i) + 1);
 			}
 			
-			console.log("Saving...", sortedList, sortedArchive);
+			// console.log("Saving...", sortedList, sortedArchive);
 
 			localStorage.setItem('todos', JSON.stringify(sortedList));
 			(saveArchiveToSession ? sessionStorage : localStorage).setItem('archive', JSON.stringify(sortedArchive));
@@ -380,7 +380,7 @@ define(['utils', 'sortable'], function (utils, sortable) {
 			let newList = JSON.parse(localStorage.getItem('todos')) || [];
 			let newArchive = JSON.parse((saveArchiveToSession ? sessionStorage : localStorage).getItem('archive')) || [];
 			
-			console.log("Loaded...", newList, newArchive);
+			// console.log("Loaded...", newList, newArchive);
 
 			let oldTodos = listElem.querySelectorAll("tr:not(.list-table__entry--new-todo)");
 			oldTodos.forEach((x,i,a) => { x.parentElement.removeChild(x); });
