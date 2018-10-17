@@ -76,7 +76,9 @@ define(['utils', 'sortable'], function (utils, sortable) {
 			label.setAttribute("for", input.id);
 			label.innerText += (parseInt(added.dataset.todoid) + 1);
 
-			added.querySelector(".button--check").addEventListener("click", _onFinisheToDo);
+			let bc = added.querySelector(".button--check");
+			bc.addEventListener("click", _onFinisheToDo);
+			bc.addEventListener("touchend", _onFinisheToDo);
 			
 			listElem.insertBefore(added, utils.getParent("TR", newToDoInput));
 		 }
@@ -169,7 +171,10 @@ define(['utils', 'sortable'], function (utils, sortable) {
 			let tmp = listElem.removeChild(todos[id]);
 			
 			tmp.querySelector("input").removeEventListener("change", _updateToDo);
-			tmp.querySelector(".button--check").removeEventListener("click", _onFinisheToDo);
+
+			let bc = tmp.querySelector(".button--check");
+			bc.removeEventListener("click", _onFinisheToDo);
+			bc.removeEventListener("touchend", _onFinisheToDo);
 
 			for(let i = id; i < todos.length; ++i) --todos[i].dataset.todoid;
 			_saveToStorage();
@@ -216,8 +221,12 @@ define(['utils', 'sortable'], function (utils, sortable) {
 			input.placeholder = COOLDOWN_ARCHIVING_PLACEHOLDER_START+(parseInt(cooldownArchivingTime)+1)+COOLDOWN_ARCHIVING_PLACEHOLDER_END;
 
 			target.removeEventListener("change", _updateToDo);
-			target.addEventListener("mouseleave", _startArchivingCountdown);
+			target.addEventListener("mouseleave", _startArchivingCountdown);			
 			target.addEventListener("archivetodo", _archiveToDo);
+			
+			if(ev.type === "touchend")
+				_startArchivingCountdown(ev);
+
 		}
 
 		/**
