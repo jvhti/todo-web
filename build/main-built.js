@@ -217,6 +217,7 @@ define('sortable',["../dist/js/Sortable.min","utils"], function (Sortable, utils
 			sortableObj = Sortable.create(container, {
 				handle: ".button--drag",
 				draggable: "tr:not(.list-table__entry--new-todo)",
+				animation: 150,
 				onUpdate: function(e){
 					let ev = new CustomEvent("sortableUpdate");
 					e.target.dispatchEvent(ev);
@@ -392,6 +393,9 @@ define('todo',['utils', 'sortable'], function (utils, sortable) {
 			_createToDoEntry(newToDoInput.value.trim(), newToDoInput);
 
 			newToDoInput.value = "";
+			
+			newToDoInput.focus();
+			newToDoInput.scrollIntoView(false);
 
 			_saveToStorage();
 		}
@@ -448,7 +452,11 @@ define('todo',['utils', 'sortable'], function (utils, sortable) {
 		 * @param {Event} Event-Data
 		 */
 		let _onFinisheToDo = function(ev){
+			utils.getParent("TR", addButtonElem).querySelector("input").blur();
+
+			ev.target.focus();
 			ev.preventDefault();
+
 			let target = utils.getParent("TR", ev.target);
 			let input = target.querySelector("input");
 
@@ -465,10 +473,9 @@ define('todo',['utils', 'sortable'], function (utils, sortable) {
 			target.removeEventListener("change", _updateToDo);
 			target.addEventListener("mouseleave", _startArchivingCountdown);			
 			target.addEventListener("archivetodo", _archiveToDo);
-			
+
 			if(ev.type === "touchend")
 				_startArchivingCountdown(ev);
-
 		}
 
 		/**
@@ -479,6 +486,7 @@ define('todo',['utils', 'sortable'], function (utils, sortable) {
 		 * @param {Event} Event Data
 		 */
 		let _startArchivingCountdown = function(ev){
+			ev.preventDefault();
 			let target = utils.getParent("TR", ev.target);
 			let input = target.querySelector("input");
 
@@ -553,7 +561,7 @@ define('todo',['utils', 'sortable'], function (utils, sortable) {
 		}
 
 		/**
-		 * Saves ToDo list in LocalStorage and Archive in SessionStorage. Updates Total Count.
+		 * Saves ToDo list in LocalStorage and Archive in SessionStorage. Updates Total Count. Update IDs and Texts;
 		 * @function
 		 * @name _saveToStorage
 		 * @private
@@ -566,8 +574,39 @@ define('todo',['utils', 'sortable'], function (utils, sortable) {
 			let listChilds = listElem.querySelectorAll("tr");
 			let archiveChilds = archiveElem.querySelectorAll("tr");
 
-			for (var i = 0; i < listChilds.length - 1; i++)	sortedList[i] = list[listChilds[i].dataset.todoid];
-			for (var i = 0; i < archiveChilds.length; i++)	sortedArchive[i] = archive[archiveChilds[i].dataset.archiveid];
+			for (var i = 0; i < listChilds.length - 1; i++)	{
+				if(i == listChilds[i].dataset.todoid){
+					sortedList[i] = list[i];
+					continue;
+				}
+
+				sortedList[i] = list[listChilds[i].dataset.todoid];
+				listChilds[i].dataset.todoid = i;
+
+				let input = listChilds[i].querySelector("input");
+				input.id = "todoEntry"+i;
+
+				let label = listChilds[i].querySelector("label");
+				label.setAttribute("for", input.id);
+				label.innerText = "Text of ToDo " + (parseInt(i) + 1);
+			}
+
+			for (var i = 0; i < archiveChilds.length; i++){
+				if(i == archiveChilds[i].dataset.archiveid){
+					sortedArchive[i] = archive[i];					
+					continue;
+				}
+
+				sortedArchive[i] = archive[archiveChilds[i].dataset.archiveid];
+				archiveChilds[i].dataset.todoid = i;
+
+				let input = archiveChilds[i].querySelector("input");
+				input.id = "archiveEntry"+i;
+
+				let label = archiveChilds[i].querySelector("label");
+				label.setAttribute("for", input.id);
+				label.innerText = "Text of Archive " + (parseInt(i) + 1);
+			}
 			
 			// console.log("Saving...", sortedList, sortedArchive);
 
