@@ -223,7 +223,7 @@ define(['utils', 'sortable'], function (utils, sortable) {
 			target.removeEventListener("change", _updateToDo);
 			target.addEventListener("mouseleave", _startArchivingCountdown);			
 			target.addEventListener("archivetodo", _archiveToDo);
-			
+
 			if(ev.type === "touchend")
 				_startArchivingCountdown(ev);
 
@@ -237,6 +237,7 @@ define(['utils', 'sortable'], function (utils, sortable) {
 		 * @param {Event} Event Data
 		 */
 		let _startArchivingCountdown = function(ev){
+			ev.preventDefault();
 			let target = utils.getParent("TR", ev.target);
 			let input = target.querySelector("input");
 
@@ -311,7 +312,7 @@ define(['utils', 'sortable'], function (utils, sortable) {
 		}
 
 		/**
-		 * Saves ToDo list in LocalStorage and Archive in SessionStorage. Updates Total Count.
+		 * Saves ToDo list in LocalStorage and Archive in SessionStorage. Updates Total Count. Update IDs and Texts;
 		 * @function
 		 * @name _saveToStorage
 		 * @private
@@ -324,10 +325,43 @@ define(['utils', 'sortable'], function (utils, sortable) {
 			let listChilds = listElem.querySelectorAll("tr");
 			let archiveChilds = archiveElem.querySelectorAll("tr");
 
-			for (var i = 0; i < listChilds.length - 1; i++)	sortedList[i] = list[listChilds[i].dataset.todoid];
-			for (var i = 0; i < archiveChilds.length; i++)	sortedArchive[i] = archive[archiveChilds[i].dataset.archiveid];
+			console.log(archiveChilds);
+
+			for (var i = 0; i < listChilds.length - 1; i++)	{
+				if(i == listChilds[i].dataset.todoid){
+					sortedList[i] = list[i];
+					continue;
+				}
+				
+				sortedList[i] = list[listChilds[i].dataset.todoid];
+				listChilds[i].dataset.todoid = i;
+
+				let input = listChilds[i].querySelector("input");
+				input.id = "todoEntry"+i;
+
+				let label = listChilds[i].querySelector("label");
+				label.setAttribute("for", input.id);
+				label.innerText = "Text of ToDo " + (parseInt(i) + 1);
+			}
+
+			for (var i = 0; i < archiveChilds.length; i++){
+				if(i == archiveChilds[i].dataset.archiveid){
+					sortedArchive[i] = archive[i];					
+					continue;
+				}
+
+				sortedArchive[i] = archive[archiveChilds[i].dataset.archiveid];
+				archiveChilds[i].dataset.todoid = i;
+
+				let input = archiveChilds[i].querySelector("input");
+				input.id = "archiveEntry"+i;
+
+				let label = archiveChilds[i].querySelector("label");
+				label.setAttribute("for", input.id);
+				label.innerText = "Text of Archive " + (parseInt(i) + 1);
+			}
 			
-			// console.log("Saving...", sortedList, sortedArchive);
+			console.log("Saving...", sortedList, sortedArchive);
 
 			localStorage.setItem('todos', JSON.stringify(sortedList));
 			(saveArchiveToSession ? sessionStorage : localStorage).setItem('archive', JSON.stringify(sortedArchive));
@@ -346,7 +380,7 @@ define(['utils', 'sortable'], function (utils, sortable) {
 			let newList = JSON.parse(localStorage.getItem('todos')) || [];
 			let newArchive = JSON.parse((saveArchiveToSession ? sessionStorage : localStorage).getItem('archive')) || [];
 			
-			// console.log("Loaded...", newList, newArchive);
+			console.log("Loaded...", newList, newArchive);
 
 			let oldTodos = listElem.querySelectorAll("tr:not(.list-table__entry--new-todo)");
 			oldTodos.forEach((x,i,a) => { x.parentElement.removeChild(x); });
