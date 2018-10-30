@@ -141,7 +141,7 @@ define('collapsible',['utils'], function (utils) {
 			let targets = _getTargets(selector);
 			let status = false;
 
-			if(elem.dataset.saveas !== undefined && elem.dataset.saveas.length !== 0) status = (sessionStorage.getItem(elem.dataset.saveas).toLowerCase() === "true");
+			if(elem.dataset.saveas !== undefined && elem.dataset.saveas.length !== 0) status = ((sessionStorage.getItem(elem.dataset.saveas) || "").toLowerCase() === "true");
 
 			for(let i = 0; i < targets.length; ++i){
 				if(String(targets[i].dataset.collapsed).toLowerCase() === "true" || status) targets[i].classList.add(collapsedClass);
@@ -604,7 +604,7 @@ define('todo',['utils', 'sortable'], function (utils, sortable) {
 				}
 
 				sortedArchive[i] = archive[archiveChilds[i].dataset.archiveid];
-				archiveChilds[i].dataset.todoid = i;
+				archiveChilds[i].dataset.archiveid = i;
 
 				let input = archiveChilds[i].querySelector("input");
 				input.id = "archiveEntry"+i;
