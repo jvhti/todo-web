@@ -355,7 +355,7 @@ define(['utils', 'sortable'], function (utils, sortable) {
 				}
 
 				sortedArchive[i] = archive[archiveChilds[i].dataset.archiveid];
-				archiveChilds[i].dataset.todoid = i;
+				archiveChilds[i].dataset.archiveid = i;
 
 				let input = archiveChilds[i].querySelector("input");
 				input.id = "archiveEntry"+i;
