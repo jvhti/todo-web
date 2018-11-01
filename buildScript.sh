@@ -2,7 +2,7 @@
 
 echo "Building Doc"
 rm -rf ./doc/
-jsdoc js/* -d ./doc/
+jsdoc js/* sw.js -d ./doc/
 
 echo "Building RequireJS"
 r.js -o name=main out=build/main-built.js baseUrl=./js optimize=none
