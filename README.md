@@ -7,11 +7,13 @@ A simple ToDo Web App to showcase my skills.
 
 - Keep track of simple ToDo Lists (keeps it on LocalStorage).
 - Mobile-friendly.
+- PWA.
 - Archive System (just to add a bit more complexity). Finished ToDos will be moved to the archive, where it will stay until the user removes it or the session is finished (archive is saved on SessionStorage).
 - Sortable ToDo list and Archive.
 - Keeps some meta data with ToDos and Archobe Entries (Creation date and finished date).
-- Lighthouse 99 on Performance, Accessibility and SEO.
+- Lighthouse +99 on Performance, Accessibility, PWA, Best Practices and SEO.
 
+![Lighthouse Report](https://i.imgur.com/PIe6BfZ.png)
 
 ## Live
 You can see it online at: https://jvhti.github.io/todo-web/
