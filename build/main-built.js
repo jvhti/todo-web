@@ -686,13 +686,41 @@ define('todo',['utils', 'sortable'], function (utils, sortable) {
 	};
 });
 
+define('serviceWorker',[],function () {
+	/**
+	 * Service Worker Loader Module
+	 * @public
+	 * @module Service Worker Loader
+	 */
+
+	/**
+	 * Register the service worker if the navigator supports it. Handle errors when registering or if unavailable.
+	 * @function
+	 * @name registerSW
+	 * @public
+	 */
+	async function registerSW() {
+		if ('serviceWorker' in navigator) {
+			try {
+				await navigator.serviceWorker.register('./sw.js');
+			} catch (err) {
+				alert("Fail to register ServiceWorker.");
+				console.error(err);
+			}
+		} else {
+			console.log("ServiceWorker unavailable.");
+		}
+	}
+
+	return registerSW; 
+});
 /**
  * @projectname ToDo-Web
  * @version 1.0
  * @author João Víctor de Oliveira Santos (jvhti@hotmail.com)
  * @file Entry point for RequireJS. Selects needed elements and start the ToDo and Collapsible Modules.
  */
-requirejs(["collapsible", "todo"], function(collapsible, todo) {
+requirejs(["collapsible", "todo", "serviceWorker"], function(collapsible, todo, serviceWorker) {
 	let addBtn = document.getElementById("add-todo");
 	let todoList = document.getElementsByClassName("list-table__body--todo")[0];
 	let archiveList = document.getElementsByClassName("list-table__body--archive")[0];
@@ -705,6 +733,11 @@ requirejs(["collapsible", "todo"], function(collapsible, todo) {
 
 	let col = collapsible("button--collapsible-controller", "list-table__body--collapsed");
 	col.startup();
+
+	window.addEventListener('load', (e) => {
+		serviceWorker();
+	});
+
 });
 
 define("main", function(){});
