@@ -19,7 +19,6 @@ requirejs(["collapsible", "todo", "serviceWorker"], function(collapsible, todo, 
 	col.startup();
 
 	window.addEventListener('load', (e) => {
-		console.log("Registering");
 		serviceWorker();
 	});
 
