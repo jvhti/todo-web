@@ -12,6 +12,7 @@ define(function () {
 	 * @public
 	 */
 	async function registerSW() {
+		console.log("Registering");
 		if ('serviceWorker' in navigator) {
 			try {
 				await navigator.serviceWorker.register('./sw.js');
